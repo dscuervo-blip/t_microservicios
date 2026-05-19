@@ -1,0 +1,13 @@
+{
+    "name": "alquiler/clientes",
+    "description": "Microservicio de Clientes",
+    "type": "project",
+    "require": {
+        "php": ">=8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Clientes\\": "src/"
+        }
+    }
+}
