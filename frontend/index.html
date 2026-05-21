@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestor de Alquiler de Vehículos</title>
+
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
 
     <aside class="sidebar">
@@ -13,42 +16,78 @@
             <h1>AutoRent</h1>
             <p>Gestor de Alquiler</p>
         </div>
+
         <nav>
             <ul>
-                <li><a href="#" class="nav-link active" data-view="vehiculos">Vehículos</a></li>
-                <li><a href="#" class="nav-link"        data-view="clientes">Clientes</a></li>
-                <li><a href="#" class="nav-link"        data-view="reservas">Reservas</a></li>
-                <li><a href="#" class="nav-link"        data-view="devoluciones">Devoluciones</a></li>
+                <li>
+                    <a href="#" class="nav-link active" data-view="vehiculos">
+                        Vehículos
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" class="nav-link" data-view="clientes">
+                        Clientes
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" class="nav-link" data-view="reservas">
+                        Reservas
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" class="nav-link" data-view="devoluciones">
+                        Devoluciones
+                    </a>
+                </li>
             </ul>
         </nav>
     </aside>
 
     <main class="content">
+
         <header class="topbar">
             <h2 id="page-title">Vehículos</h2>
-            <button id="btn-nuevo" class="btn btn-primary">+ Nuevo</button>
+
+            <button id="btn-nuevo" class="btn btn-primary">
+                + Nuevo
+            </button>
         </header>
+
         <section id="view-container"></section>
+
     </main>
 
     <div id="modal" class="modal hidden">
+
         <div class="modal-box">
+
             <div class="modal-header">
                 <h3 id="modal-title"></h3>
-                <button id="modal-close" class="btn-close">&#x2715;</button>
+
+                <button id="modal-close" class="btn-close">
+                    ✕
+                </button>
             </div>
+
             <div id="modal-body" class="modal-body"></div>
+
         </div>
+
     </div>
 
-    <script src="assets/js/app.js"></script>
     <script src="assets/js/vehiculos.js"></script>
     <script src="assets/js/clientes.js"></script>
     <script src="assets/js/reservas.js"></script>
     <script src="assets/js/devoluciones.js"></script>
+    <script src="assets/js/app.js"></script>
+
     <script>
-        // Carga la vista inicial
         vehiculos.load();
     </script>
+
 </body>
+
 </html>
