@@ -1,19 +1,14 @@
 <?php
 
-$host = "localhost";
-$dbname = "alquiler_vehiculos_db";
-$user = "root";
-$password = "";
+/**
+ * Archivo de compatibilidad. La conexión PDO se gestiona en DatabaseConnection.php
+ * usando el patrón Singleton a través del contenedor de dependencias PHP-DI.
+ *
+ * Credenciales de conexión:
+ *   host:     localhost
+ *   database: alquiler_vehiculos_db
+ *   user:     root
+ *   password: (vacío)
+ */
 
-try {
-    $pdo = new PDO(
-        "mysql:host=$host;dbname=$dbname",
-        $user,
-        $password
-    );
-
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-} catch(PDOException $e) {
-    die("Error de conexión: " . $e->getMessage());
-}
+declare(strict_types=1);

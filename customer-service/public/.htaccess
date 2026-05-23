@@ -1,0 +1,7 @@
+Options -MultiViews -Indexes
+RewriteEngine On
+
+# Redirigir todo al index.php (Slim front controller)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
