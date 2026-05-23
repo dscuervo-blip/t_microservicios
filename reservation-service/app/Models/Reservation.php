@@ -12,44 +12,39 @@ class Reservation
         public readonly int     $vehiculo_id,
         public readonly string  $fecha_inicio,
         public readonly string  $fecha_fin,
-        public readonly string  $estado,
-        public readonly ?string $created_at = null,
-        public readonly ?string $updated_at = null
+        public readonly string  $estado      = 'activa',
+        public readonly float   $valor_total = 0.0,
+        public readonly ?string $created_at  = null,
+        public readonly ?string $updated_at  = null
     ) {}
 
     public function toArray(): array
     {
-        $data = [
+        return [
             'id'           => $this->id,
             'cliente_id'   => $this->cliente_id,
             'vehiculo_id'  => $this->vehiculo_id,
             'fecha_inicio' => $this->fecha_inicio,
             'fecha_fin'    => $this->fecha_fin,
             'estado'       => $this->estado,
+            'valor_total'  => $this->valor_total,
+            'created_at'   => $this->created_at,
+            'updated_at'   => $this->updated_at,
         ];
-
-        if ($this->created_at !== null) {
-            $data['created_at'] = $this->created_at;
-        }
-        if ($this->updated_at !== null) {
-            $data['updated_at'] = $this->updated_at;
-        }
-
-        return $data;
     }
 
     public static function fromArray(array $data): self
     {
         return new self(
             id:           isset($data['id']) ? (int) $data['id'] : null,
-            cliente_id:   (int) $data['cliente_id'],
-            vehiculo_id:  (int) $data['vehiculo_id'],
-            fecha_inicio: $data['fecha_inicio'],
-            fecha_fin:    $data['fecha_fin'],
-            // Estado real según ENUM de BD: activa | completada | cancelada
-            estado:       $data['estado'] ?? 'activa',
-            created_at:   $data['created_at'] ?? null,
-            updated_at:   $data['updated_at'] ?? null
+            cliente_id:   (int) ($data['cliente_id']  ?? 0),
+            vehiculo_id:  (int) ($data['vehiculo_id'] ?? 0),
+            fecha_inicio: $data['fecha_inicio'] ?? '',
+            fecha_fin:    $data['fecha_fin']    ?? '',
+            estado:       $data['estado']       ?? 'activa',
+            valor_total:  (float) ($data['valor_total'] ?? 0),
+            created_at:   $data['created_at']   ?? null,
+            updated_at:   $data['updated_at']   ?? null
         );
     }
 }

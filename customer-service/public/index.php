@@ -20,6 +20,9 @@ $container = $containerBuilder->build();
 AppFactory::setContainer($container);
 $app = AppFactory::create();
 
+// Base path para XAMPP en subdirectorio
+$app->setBasePath(str_replace('/index.php', '', $_SERVER['SCRIPT_NAME']));
+
 // ─── Middleware ───────────────────────────────────────────────────────────────
 $app->addBodyParsingMiddleware();
 $app->addRoutingMiddleware();

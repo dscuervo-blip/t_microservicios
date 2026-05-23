@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoRent — Gestor de Alquiler</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- Sidebar izquierdo -->
+  <aside class="sidebar">
+
+    <div class="brand">
+      <div class="brand-icon">AR</div>
+      <span class="brand-name">AutoRent</span>
+    </div>
+
+    <nav>
+      <a href="#" class="nav-link active" data-view="vehiculos">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+          <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
+          <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1v-1h3.05a2.5 2.5 0 014.9 0H19a1 1 0 001-1v-5a1 1 0 00-.293-.707L17 5.586A1 1 0 0016.293 5H3zM11 7h3l2 2h-5V7z"/>
+        </svg>
+        Vehículos
+      </a>
+      <a href="#" class="nav-link" data-view="clientes">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+          <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+        </svg>
+        Clientes
+      </a>
+      <a href="#" class="nav-link" data-view="reservas">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+          <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+        </svg>
+        Reservas
+      </a>
+      <a href="#" class="nav-link" data-view="devoluciones">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+          <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/>
+        </svg>
+        Devoluciones
+      </a>
+    </nav>
+
+  </aside>
+
+  <!-- Área principal -->
+  <div class="main">
+
+    <header class="topbar">
+      <h1 id="page-title">Vehículos</h1>
+      <button id="btn-nuevo" class="btn btn-blue">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14">
+          <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+        </svg>
+        <span id="btn-nuevo-text">Nuevo vehículo</span>
+      </button>
+    </header>
+
+    <div id="view-container"></div>
+
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-overlay"></div>
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 id="modal-title">Título</h2>
+        <button id="modal-close" class="modal-close">✕</button>
+      </div>
+      <div id="modal-body" class="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="assets/js/vehiculos.js"></script>
+  <script src="assets/js/clientes.js"></script>
+  <script src="assets/js/reservas.js"></script>
+  <script src="assets/js/devoluciones.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>navigate('vehiculos');</script>
+</body>
+</html>

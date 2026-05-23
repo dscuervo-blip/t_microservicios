@@ -17,27 +17,21 @@ class VehicleService
 
     public function getAllVehicles(): array
     {
-        $vehicles = $this->repository->findAll();
-
-        return array_map(fn(Vehicle $v) => $v->toArray(), $vehicles);
+        return array_map(fn(Vehicle $v) => $v->toArray(), $this->repository->findAll());
     }
 
     public function getVehicleById(int $id): array
     {
         $vehicle = $this->repository->findById($id);
-
         if ($vehicle === null) {
             throw new RuntimeException("Vehículo con ID $id no encontrado.", 404);
         }
-
         return $vehicle->toArray();
     }
 
     public function getAvailableVehicles(): array
     {
-        $vehicles = $this->repository->findAvailable();
-
-        return array_map(fn(Vehicle $v) => $v->toArray(), $vehicles);
+        return array_map(fn(Vehicle $v) => $v->toArray(), $this->repository->findAvailable());
     }
 
     public function getVehiclesByCategory(string $category): array
@@ -45,61 +39,51 @@ class VehicleService
         if (empty(trim($category))) {
             throw new InvalidArgumentException('La categoría no puede estar vacía.');
         }
-
-        $vehicles = $this->repository->findByCategory($category);
-
-        return array_map(fn(Vehicle $v) => $v->toArray(), $vehicles);
+        return array_map(fn(Vehicle $v) => $v->toArray(), $this->repository->findByCategory($category));
     }
 
     public function createVehicle(array $data): array
     {
-        $this->validateRequiredFields($data);
+        $this->validateRequired($data);
         $this->validateAnio((int) $data['anio']);
         $this->validateEstado($data['estado'] ?? 'disponible');
 
-        $vehicle = Vehicle::fromArray($data);
+        if (!empty($data['placa']) && $this->repository->placaExists($data['placa'])) {
+            throw new InvalidArgumentException("La placa '{$data['placa']}' ya está registrada.");
+        }
 
-        return $this->repository->create($vehicle)->toArray();
+        return $this->repository->create(Vehicle::fromArray($data))->toArray();
     }
 
     public function updateVehicle(int $id, array $data): array
     {
-        $existing = $this->repository->findById($id);
-
-        if ($existing === null) {
+        if ($this->repository->findById($id) === null) {
             throw new RuntimeException("Vehículo con ID $id no encontrado.", 404);
         }
-
         if (isset($data['anio'])) {
             $this->validateAnio((int) $data['anio']);
         }
-
         if (isset($data['estado'])) {
             $this->validateEstado($data['estado']);
         }
-
-        $updated = $this->repository->update($id, $data);
-
-        return $updated->toArray();
+        if (!empty($data['placa']) && $this->repository->placaExists($data['placa'], $id)) {
+            throw new InvalidArgumentException("La placa '{$data['placa']}' ya está registrada.");
+        }
+        return $this->repository->update($id, $data)->toArray();
     }
 
     public function deleteVehicle(int $id): void
     {
-        $existing = $this->repository->findById($id);
-
-        if ($existing === null) {
+        if ($this->repository->findById($id) === null) {
             throw new RuntimeException("Vehículo con ID $id no encontrado.", 404);
         }
-
         $this->repository->delete($id);
     }
 
-    private function validateRequiredFields(array $data): void
+    private function validateRequired(array $data): void
     {
-        $required = ['marca', 'modelo', 'anio', 'categoria'];
-
-        foreach ($required as $field) {
-            if (empty($data[$field]) && $data[$field] !== 0) {
+        foreach (['marca', 'modelo', 'anio'] as $field) {
+            if (empty($data[$field]) && ($data[$field] ?? '') !== '0') {
                 throw new InvalidArgumentException("El campo '$field' es obligatorio.");
             }
         }
@@ -107,12 +91,9 @@ class VehicleService
 
     private function validateAnio(int $anio): void
     {
-        $currentYear = (int) date('Y');
-
-        if ($anio < 1900 || $anio > $currentYear + 1) {
-            throw new InvalidArgumentException(
-                "El año debe estar entre 1900 y " . ($currentYear + 1) . "."
-            );
+        $max = (int) date('Y') + 1;
+        if ($anio < 1900 || $anio > $max) {
+            throw new InvalidArgumentException("El año debe estar entre 1900 y $max.");
         }
     }
 
@@ -120,7 +101,7 @@ class VehicleService
     {
         if (!in_array($estado, self::VALID_STATES, true)) {
             throw new InvalidArgumentException(
-                "Estado inválido. Valores permitidos: " . implode(', ', self::VALID_STATES) . "."
+                'Estado inválido. Valores permitidos: ' . implode(', ', self::VALID_STATES) . '.'
             );
         }
     }

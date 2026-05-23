@@ -20,6 +20,9 @@ $container = $containerBuilder->build();
 AppFactory::setContainer($container);
 $app = AppFactory::create();
 
+// Base path para XAMPP en subdirectorio
+$app->setBasePath(str_replace('/index.php', '', $_SERVER['SCRIPT_NAME']));
+
 // ─── Middleware (el último en registrarse se ejecuta primero) ─────────────────
 $app->addBodyParsingMiddleware();   // Parsea JSON y form-data
 $app->addRoutingMiddleware();       // Habilita el enrutamiento

@@ -1,0 +1,13 @@
+{
+    "name": "alquiler/reservas",
+    "description": "Microservicio de Reservas",
+    "type": "project",
+    "require": {
+        "php": ">=8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Reservas\\": "src/"
+        }
+    }
+}
